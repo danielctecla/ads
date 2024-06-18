@@ -24,6 +24,10 @@
         .content-auto {
           content-visibility: auto;
         }
+
+        .min-h-screen-minus-68 {
+          min-height: calc(100vh - 68px); /* Ajusta 3.5rem al valor que necesitas restar */
+        }
       }
     </style>
     <script>
@@ -104,8 +108,72 @@
         </div>
       </div>
     </nav>
-    <main class="h-screen-minus-68 w-full">
-        
+    <main class="min-h-screen-minus-68 w-full flex flex-col">
+      <h2 class="text-primary text-center py-7 text-2xl font-bold">
+                Status de Auditorías
+      </h2>    
+      <div class="flex flex-col">
+          
+          <table class="mx-auto w-full md:w-3/4 overflow-x-auto">
+          <?php 
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+            
+            include './php/conexion_bd.php';
+
+            $query = "SELECT * FROM auditoria WHERE rfc_auditor = '".$_SESSION['rfc']."'";
+            $result = mysqli_query($conexion, $query);
+            if(mysqli_num_rows($result) == 0){
+              echo '<h2 class="text-primary text-center py-7 text-2xl font-bold">No hay auditorías registradas</h2>';
+            }else{
+              echo '
+                <thead class="bg-primary text-white">
+                  <tr>
+                    <th class="py-2 border-r rounded-tl-lg">Folio</th>
+                    <th class="py-2 border-r hidden md:table-cell">Fecha de emisión</th>
+                    <th class="py-2 border-r hidden md:table-cell">Auditor</th>
+                    <th class="py-2 border-r ">Auditado</th>
+                    <th class="py-2 border-r ">Estado</th>
+                    <th class="py-2 border-r rounded-tr-lg">Acciones</th> <!-- Añadido border-r para consistencia -->
+                  </tr>
+                </thead>
+                ';
+              echo '<tbody>';
+              while($row = mysqli_fetch_array($result)){
+                echo '
+                  <tr class="bg-white">
+                    <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['fecha_elaboracion'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['rfc_auditor'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold ">'.$row['rfc_auditado'].'</td>
+                    
+                ';
+
+                if($row['estado'] == 'pendiente' || $row['estado'] == 'revisada'){
+                  echo '
+                    <td class="py-2 px-1 border-r text-center font-semibold ">'.ucfirst($row['estado']).'</td>
+                    <td class="py-2 flex justify-center">
+                      <a href="./generar_informe.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Generar Informe</a>
+                    </td>
+                  ';
+                }else{
+                  echo '
+                    <td class="py-2 px-1 border-r text-green-900 text-center font-semibold ">'.ucfirst($row['estado']).'</td>
+                    <td class="py-2 flex justify-center">
+                      <a href="./php/eliminar_auditoria.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Ver informe</a>
+                    </td>
+                  ';
+                
+                }
+
+                echo '</tr>';
+              }
+              echo '</tbody>';
+            }
+          ?>
+          </table>
+        </div>
     </main>
     <!-- footer -->
     <footer class="bg-white border-t-2 border-gray-100">

@@ -24,6 +24,10 @@
         .content-auto {
           content-visibility: auto;
         }
+
+        body{
+          font-family: "Times New Roman";
+        }
       }
     </style>
     <script>
