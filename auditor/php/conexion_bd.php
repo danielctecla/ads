@@ -1,6 +1,6 @@
 <?php
 
-    $conexion = mysqli_connect("localhost", "root", "", "test_login_register");
+    $conexion = mysqli_connect("localhost", "root", "", "ads");
 
     if(!$conexion){
         echo 'Error al conectar a la base de datos';

@@ -11,6 +11,12 @@
     session_destroy();
     die();
   }
+
+  if($_SESSION['type'] == 'auditor'){
+    header("location: ../auditor/index.php");
+  }
+
+  
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +27,6 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Log in con exito</h1>
-    <h2>Bienvenido <?php echo $_SESSION['nombre'] . $_SESSION['apellido'] ; ?></h2> 
-    <h2>Correo: <?php echo $_SESSION['usuario']; ?></h2>
-
     <button>
       <a href="./php/logout_bd.php">Cerrar sesion</a>
     </button>
