@@ -122,44 +122,68 @@
             
             include './php/conexion_bd.php';
 
-            $query = "SELECT * FROM auditoria WHERE rfc_auditor = '".$_SESSION['rfc']."'";
+            $query = "SELECT * 
+                FROM informes WHERE folio_auditoria IN(
+                    SELECT folio 
+                    FROM auditoria 
+                    WHERE rfc_auditor = '".$_SESSION['rfc']."'
+                )";
+
             $result = mysqli_query($conexion, $query);
+
             if(mysqli_num_rows($result) == 0){
               echo '<h2 class="text-primary text-center py-7 text-2xl font-bold">No hay auditorías registradas</h2>';
             }else{
               echo '
                 <thead class="bg-primary text-white">
                   <tr>
-                    <th class="py-2 border-r rounded-tl-lg">Folio</th>
-                    <th class="py-2 border-r hidden md:table-cell">Fecha de emisión</th>
-                    <th class="py-2 border-r hidden md:table-cell">Auditor</th>
+                    <th class="py-2 border-r rounded-tl-lg">Folio informe</th>
+                    <th class="py-2 border-r hidden md:table-cell">Titulo</th>
+                    <th class="py-2 border-r hidden md:table-cell">Fecha</th>
                     <th class="py-2 border-r ">Auditado</th>
-                    <th class="py-2 border-r ">Estado</th>
+                    <th class="py-2 border-r ">Folio Auditoria</th>
                     <th class="py-2 border-r rounded-tr-lg">Acciones</th> <!-- Añadido border-r para consistencia -->
                   </tr>
                 </thead>
                 ';
               echo '<tbody>';
-              while($row = mysqli_fetch_array($result)){
-                if($row['estado'] == 'pendiente' || $row['estado'] == 'revisada'){
-                echo '
-                  <tr class="bg-white">
-                    <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio'].'</td>
-                    <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['fecha_elaboracion'].'</td>
-                    <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['rfc_auditor'].'</td>
-                    <td class="py-2 px-1 border-r text-center font-semibold ">'.$row['rfc_auditado'].'</td>
-                    
-                ';
-                  echo '
-                    <td class="py-2 px-1 border-r text-center font-semibold ">'.ucfirst($row['estado']).'</td>
-                    <td class="py-2 flex justify-center">
-                      <a href="./generar_informe.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Generar Informe</a>
-                    </td>
-                  ';
+            while($row = mysqli_fetch_array($result)){
+                $second_query = "SELECT * FROM auditoria WHERE folio = '".$row['folio_auditoria']."'";
+                $second_result = mysqli_query($conexion, $second_query);
+                $second_row = mysqli_fetch_array($second_result);
 
-                echo '</tr>';
-                }
-              }
+                echo'
+                    <tr class="bg-white">
+                        <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio_informe'].'</td>
+                        <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$second_row['titulo'].'</td>
+                        <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$second_row['fecha_elaboracion'].'</td>
+                        <td class="py-2 px-1 border-r text-center font-semibold">'.$second_row['rfc_auditado'].'</td>
+                        
+                        <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio_auditoria'].'</td>
+                        <td class="py-2 flex justify-center">
+                            <a href="./ver-informe.php?folio-informe='.$row['folio_informe'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Ver informe</a>
+                        </td>
+                    </tr>
+                ';
+            }
+                
+            //     echo '
+            //       <tr class="bg-white">
+            //         <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio'].'</td>
+            //         <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['fecha_elaboracion'].'</td>
+            //         <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['rfc_auditor'].'</td>
+            //         <td class="py-2 px-1 border-r text-center font-semibold ">'.$row['rfc_auditado'].'</td>
+                    
+            //     ';
+            //       echo '
+            //         <td class="py-2 px-1 border-r text-center font-semibold ">'.ucfirst($row['estado']).'</td>
+            //         <td class="py-2 flex justify-center">
+            //           <a href="./generar_informe.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Generar Informe</a>
+            //         </td>
+            //       ';
+
+            //     echo '</tr>';
+            //   }
               echo '</tbody>';
             }
           ?>

@@ -173,7 +173,7 @@
                 <a href="" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center rounded-lg text-white justify-center items-center font-semibold">Buzón de citas</a>
               </div>
               <div class ="flex flex-row justify-center gap-3">
-                <a href="" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Emitir Informe</a> 
+                <a href="./informes.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Registro de Informes</a> 
                 <a href="./registrar-auditoria.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Registrar Auditoría</a>
               </div>
             </div>
