@@ -17,9 +17,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>tuPlomeroMx</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
@@ -27,10 +24,10 @@
         .content-auto {
           content-visibility: auto;
         }
-      }
 
-      body{
-        font-family: "Merriweather", serif;
+        .min-h-screen-minus-68 {
+          min-height: calc(100vh - 68px); /* Ajusta 3.5rem al valor que necesitas restar */
+        }
       }
     </style>
     <script>
@@ -51,7 +48,7 @@
     </script>
   </head>
   <body class="bg-gray-100">
-    <nav class="shadow bg-gray-100">
+  <nav class="shadow bg-gray-100">
       <div
         class="relative flex flex-col px-4 py-4 md:mx-auto md:flex-row md:items-center"
       >
@@ -93,91 +90,81 @@
             <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
               <a href="./index.php">Inicio</a>
             </li>
-            <li class="text-primary md:mr-8 font-semibold hover:text-primary">
-              <a href="">Menú</a>
-            </li>
             <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
-              <a href="./status.php">Status Auditorias</a>
+              <a href="./menu.php">Menú</a>
+            </li>
+            <li class="text-text-primary md:mr-8 font-semibold hover:text-primary">
+              <a href="">Status Auditorias</a>
             </li>
             <li class="text-gray-500 md:mr-8 hover:text-secundary">
               <button
+                onclick = "window.location = '../login/php/logout_bd.php'"
                 class="rounded-md border-2 border-primary px-6 py-1 font-medium text-primary transition-colors hover:bg-primary hover:text-white"
               >
                 Cerrar Sesión
-              </button>
+              </button>  
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <main class="md:h-screen-minus-68 w-full">
-        <div class="flex md:h-full md:flex-row flex-col w-full justify-between">
+    <main class="min-h-screen-minus-68 w-full flex flex-col">
+      <h2 class="text-primary text-center py-7 text-2xl font-bold">
+                Citas programadas
+      </h2>    
+      <div class="flex flex-col">
           
-          <div class="md:w-1/2 flex flex-col py-7 md:p-7 gap-7 justify-center">
-            <div class=" max-md:p-6 text-2xl font-bold">Hoy es
-            <?php 
-                setlocale(LC_TIME, 'es_ES.UTF-8', 'Spanish_Spain.1252');
-                echo strftime("%d de %B de %Y");
-                ?>.
-            </div>
+          <table class="mx-auto w-full md:w-3/4 overflow-x-auto">
+          <?php 
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
             
-            <div class ="flex flex-col border-2 bg-primary rounded-xl pt-4 pb-6 px-8">
-              <h2 class="text-center text-white  text-lg py-1 font-bold">
-                Datos del Auditor
-              </h2>
-              <p class="font-bold text-white mb-2">Nombre</p>
-              <div class="rounded-lg bg-white pl-4 py-2 font-semibold mb-2">
-                <?php echo $_SESSION['nombre']; ?>
-              </div>
-              <div class="flex flex-row gap-2 mb-2">
-                <div class="flex-1 w-1/2">
-                  <p class="font-bold text-white mb-2 truncate">Domicilio</p>
-                  <div class="rounded-lg bg-white px-4 py-2 font-semibold truncate">
-                    <?php echo $_SESSION['domicilio'] ?>   
-                  </div>
-                </div>
-                <div class="flex-1 w-1/2">
-                  <p class="font-bold mb-2 text-white truncate">ID</p>
-                  <div class="rounded-lg bg-white  px-4 py-2 font-semibold truncate">
-                    <?php echo $_SESSION['id_auditor'] ?>   
-                  </div>
-                </div>
-              </div>
-              <div class="flex flex-row gap-2 mb-2">
-                <div class="flex-1 w-1/2">
-                  <p class="font-bold mb-2 text-white truncate">RFC</p>
-                  <div class="rounded-lg bg-white px-4 py-2 font-semibold truncate">
-                  <?php echo $_SESSION['rfc'] ?>   
-                  </div>
-                </div>
-                <div class="flex-1 w-1/2">
-                  <p class="font-bold mb-2 text-white truncate">No. Departamento</p>
-                  <div class="rounded-lg bg-white px-4 py-2 font-semibold truncate">
-                  <?php echo $_SESSION['nodepartamento'] ?>   
-                  </div>
-                </div>
-              </div>
-              <p class="font-bold text-white mb-2">CURP</p>
-              <div class="rounded-lg bg-white pl-4 mb-2 py-2 font-semibold">
-              <?php echo $_SESSION['curp'] ?>   
-              </div>
-            </div>
+            include './php/conexion_bd.php';
 
-          </div>
+            $query = "SELECT * FROM cita WHERE fecha_cita >= CURDATE()";
+            $result = mysqli_query($conexion, $query);
+            
+            if(mysqli_num_rows($result) == 0){
+              echo '<h2 class="text-primary text-center py-7 text-2xl font-bold">No hay citas</h2>';
+            }else{
+              echo '
+                <thead class="bg-primary text-white">
+                  <tr>
+                    <th class="py-2 border-r rounded-tl-lg">Folio informe</th>
+                    <th class="py-2 border-r ">Fecha</th>
+                    <th class="py-2 border-r ">Hora</th>
+                    <th class="py-2 border-r hidden md:table-cell">Lugar</th>
+                    <th class="py-2 border-r rounded-tr-lg">Acciones</th> <!-- Añadido border-r para consistencia -->
+                  </tr>
+                </thead>
+                ';
+              echo '<tbody>';
+              while($row = mysqli_fetch_array($result)){
+                
+                echo '
+                  <tr class="bg-white">
+                    <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio_informe'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold">'.$row['fecha_cita'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold">'.$row['hora_cita'].'</td>
+                    <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['lugar_cita'].'</td>
+                    
+                ';
+                  echo '
+                    <td class="py-2 flex justify-center gap-1">
+                      <a href="./modificar-cita.php?id-cita='.$row['id_cita'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">modificar</a>
+                      <a href="./php/borrar-cita.php?id-cita='.$row['id_cita'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">cancelar</a>
+                      <a href="./ver-informe.php?folio-informe='.$row['folio_informe'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">informe</a>
+                    </td>
+                  ';
 
-          <div class="md:w-1/2 max-md:mb-10 flex flex-col md:px-7 justify-center">
-            <h2 class="max-md:px-6 text-2xl font-bold mb-2">Actividades</h2>
-            <div class="bg-white border-2 px-8 py-10 flex flex-col md:rounded-lg">
-              <div class ="flex flex-row justify-center gap-3 mb-2">
-                <a href="" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center justify-center rounded-lg text-white items-center font-semibold">Status de auditoria</a> 
-                <a href="./ver-citas.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center rounded-lg text-white justify-center items-center font-semibold">Ver Citas</a>
-              </div>
-              <div class ="flex flex-row justify-center gap-3">
-                <a href="./informes.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Ver informes</a> 
-                <a href="./registrar-auditoria.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Registrar Auditoría</a>
-              </div>
-            </div>
-          </div>
+                echo '</tr>';
+                
+              }
+              echo '</tbody>';
+            }
+          ?>
+          </table>
         </div>
     </main>
     <!-- footer -->

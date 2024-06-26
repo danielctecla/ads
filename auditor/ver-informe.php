@@ -244,7 +244,9 @@
                     <h3 class="text-center text-primary font-semibold text-lg">Irregularidades Detectadas</h3>
                     <div class="flex flex-col">
                         <label for="irregularidades" class="font-medium text-primary text-sm">Descripción de las irregularidades detectadas</label>
-                        <textarea class="h-32 p-2  bg-gray-100 rounded-md resize-none" name="irregularidades" placeholder="Escribe aquí tu texto..."></textarea>
+                        <div class="h-32 p-2  bg-gray-100 rounded-md resize-none"  >
+                          <?php echo $informe['irregularidades']; ?>
+                        </div>
                     </div>
                 </div>
                 
