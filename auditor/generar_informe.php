@@ -154,7 +154,9 @@
         <form class="flex flex-col md:flex-row w-full justify-center gap-8" 
             action="<?php
             echo 'php/generar-informe.php?folio='.$auditoria['folio'];
-            ?>" method="POST" enctype="multipart/form-data"
+            ?>" 
+            method="POST" 
+            enctype="multipart/form-data"
         >
             <div class="flex flex-col md:w-2/5 lg:w-1/3 md:justify-center">
                 <div class="flex flex-col mb-4 bg-white px-6 pt-5 pb-8 rounded-lg">
@@ -165,9 +167,62 @@
                     <h3 class="text-center text-primary font-semibold text-lg">Irregularidades Detectadas</h3>
                     <div class="flex flex-col">
                         <label for="irregularidades" class="font-medium text-primary text-sm">Descripción de las irregularidades detectadas</label>
-                        <textarea class="h-32 p-2  bg-gray-100 rounded-md resize-none" name="irregularidades" placeholder="Escribe aquí tu texto..."></textarea>
+                        <textarea id="texto" class="h-10 p-2  bg-gray-100 rounded-md resize-none" name="irregularidades" placeholder="Escribe aquí tu texto..." oninput="verificarContenido()"></textarea>
                     </div>
                 </div>
+                <div id="cita" class="hidden flex flex-col bg-white w-full px-7 pt-3 pb-5 rounded-lg pb-8">
+                        <h3 class="text-center text-lg font-bold">
+                            Generar Cita
+                        </h3>
+                        <div class="flex flex-col md:flex-row gap-2 mb-2">
+                          <div class="flex-1 md:w-1/2">
+                                <label for="titulo" class="font-medium text-gray-900 text-sm truncate">Fecha de Cita</label>
+                                <input
+                                    type="date"
+                                    name="fecha-cita"
+                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
+                                    placeholder="Título"
+                                    required=""
+                                />
+                          </div>  
+                          <div class="flex-1 md:w-1/2">
+                                <label for="hora-cita" class="font-medium text-gray-900 text-sm truncate">Hora de Cita</label>
+                                <input
+                                    type="time"
+                                    name="hora-cita"
+                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
+                                    placeholder=""
+                                    required=""
+                                />
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-2 mb-2">
+                            <div class="flex-1 md:w-1/3">
+                                <label for="folio" class="font-medium text-gray-900 text-sm truncate">Lugar de Cita</label>
+                                <input
+                                    type="text"
+                                    name="lugar-cita"
+                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
+                                    
+                                    required=""
+                                />
+                            </div>
+                            
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    <script>
+                      function verificarContenido() {
+                          var textarea = document.getElementById('texto');
+                          if (textarea.value.trim() !== "") {
+                              document.getElementById('cita').classList.remove('hidden');
+                          } else {
+                              document.getElementById('cita').classList.add('hidden');
+                          }
+                      }
+                    </script>
                 <button class="self-center rounded-lg py-2 text-white font-semibold px-5 bg-primary">Actualizar</button>
             </div>
             <div class="flex flex-col md:w-2/5 lg:w-1/3 ">

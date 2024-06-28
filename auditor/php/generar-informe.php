@@ -24,6 +24,9 @@
     $estado = 'revisada';
 
     $irregularidades = $_POST['irregularidades'];
+    $fecha_cita = $_POST['fecha-cita'];
+    $hora_cita = $_POST['hora-cita'];
+    $lugar_cita = $_POST['lugar-cita'];
 
     if($irregularidades == ''){
         $estado = 'finalizada';    
@@ -43,6 +46,7 @@
     
     $ejecutar = mysqli_query($conexion, $query_insert);
 
+    $ultimoID = -1;
     if (!$ejecutar) { 
         mysqli_close($conexion);
         echo ' 
@@ -50,6 +54,8 @@
                 alert("Hubo un error al registrar el informe");
                 window.location = "../registrar-auditoria.php";
             </script>';
+    }else{
+        $ultimoID = mysqli_insert_id($conexion);
     }
 
     $query_update = "UPDATE auditoria SET estado = '$estado' WHERE folio = '".$_GET['folio']."'";
@@ -61,6 +67,16 @@
                 alert("Hubo un error al actualizar el estado de la auditoría");
                 window.location = "../registrar-auditoria.php";
             </script>';
+    }
+
+    if($fecha_cita != ''){
+        
+        $query_cita = "
+            INSERT INTO cita (folio_informe,fecha_cita,hora_cita,lugar_cita) values 
+            ('$ultimoID','$fecha_cita','$hora_cita','$lugar_cita')
+        ";
+
+        $ejecutar = mysqli_query($conexion, $query_cita);
     }
 
     mysqli_close($conexion);
