@@ -112,7 +112,7 @@
         <div class="w-full h-full flex flex-col items-center justify-center gap-20">
             <h2 class="text-primary mb-16 md:text-7xl text-5xl font-serif font-bold">Bienvenido</h2>
             <div class="text-primary text-xl md:text-4xl font-light text-center max-md:px-5">
-                <p>Hola 
+                <p>Hola
                 <?php echo $_SESSION['nombre']; ?>    
                 hoy es 
                 <?php 
@@ -120,7 +120,7 @@
                 echo strftime("%d de %B de %Y");
                 ?>.</p>
             </div>
-            <a href="./menu.php" class="py-2.5 px-14 bg-primary text-white text-semibold rounded-lg text-base font-medium">Iniciar</a>
+            <a href="./datosDomicilio.php" class="py-2.5 px-14 bg-primary text-white text-semibold rounded-lg text-base font-medium">Iniciar</a>
         </div>
     </main>
     <!-- footer -->

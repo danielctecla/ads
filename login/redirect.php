@@ -17,7 +17,7 @@
   }
 
   if($_SESSION['type'] == 'auditado'){
-    header("location: ../auditado/datosDomicilio.php");
+    header("location: ../auditado/index.php");
   }
 ?>
 
