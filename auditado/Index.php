@@ -156,8 +156,8 @@
             <h2 class="max-md:px-6 text-white text-2xl font-bold mb-2">Actividades</h2>
             <div class="bg-gray-200 border-2 px-8 py-10 flex flex-col md:rounded-lg">
               <div class ="flex flex-row justify-center gap-3 mb-2">
-                <a href="" class="w-2/4 h-14 flex bg-white py-3 text-center justify-center rounded-lg text-blue-500 items-center font-semibold hover:bg-blue-500 hover:text-white">Status de auditoria</a> 
-                <a href="./ver-citas.php" class="w-2/4 h-14 flex bg-blue-500 py-3 text-center rounded-lg text-white justify-center items-center font-semibold hover:bg-white hover:text-blue-500">Buzón de Citas</a>
+                <a href="../auditado/status.php" class="w-2/4 h-14 flex bg-white py-3 text-center justify-center rounded-lg text-blue-500 items-center font-semibold hover:bg-blue-500 hover:text-white">Status de auditoria</a> 
+                <a href="../auditado/buzoncitas.php" class="w-2/4 h-14 flex bg-blue-500 py-3 text-center rounded-lg text-white justify-center items-center font-semibold hover:bg-white hover:text-blue-500">Buzón de Citas</a>
               </div>
             </div>
           </div>

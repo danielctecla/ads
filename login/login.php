@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tuPlomeroMx</title> 
+    <title>AIdit™</title> 
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -32,7 +32,7 @@
     <section class="md:h-screen w-full bg-primary md:bg-[url('../assets/img/bg-img.png')] md:bg-cover md:bg-center">
       <!-- title -->
     <div class="h-64 flex justify-center items-center flex-col space-y-4">
-      <h2 class="text-white md:text-black text-5xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Aldit</h2>
+      <h2 class="text-white md:text-black text-5xl font-bold drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">AIdit™</h2>
       <!-- <h1 class="text-white text-lg drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Servicio de plomeria y fontaneria</h1> -->
     </div>
 

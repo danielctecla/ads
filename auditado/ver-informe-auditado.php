@@ -11,8 +11,8 @@
     die();
   }
   
-  if(!isset($_GET['folio'])){
-    header ('Location: status.php');
+  if(!isset($_GET['folio-informe'])){
+    header ('Location: informes.php');
     exit;
   }
 
@@ -22,20 +22,24 @@
 
   include './php/conexion_bd.php';
 
-  $query = "SELECT * FROM auditoria WHERE folio = '".$_GET['folio']."'";
+  $query = "SELECT * FROM informes WHERE folio_informe = '".$_GET['folio-informe']."'";
   $resultado = mysqli_query($conexion, $query);
   
   if(mysqli_num_rows($resultado) == 0){
-    header ('Location: status.php');
+    header ('Location: informes.php');
     exit;
   }
 
-  $auditoria = mysqli_fetch_array($resultado);
+  $informe = mysqli_fetch_array($resultado);
 
   $second_query = "SELECT * FROM auditor WHERE rfc_usuarios = '".$_SESSION['rfc']."'";
 
   $second_result = mysqli_query($conexion, $second_query);
   $auditor = mysqli_fetch_array($second_result);
+
+  $third_query = "SELECT * FROM auditoria WHERE folio = '".$informe['folio_auditoria']."'";
+  $third_result = mysqli_query($conexion, $third_query);
+  $auditoria = mysqli_fetch_array($third_result);
 
 ?>
 <!DOCTYPE html>
@@ -43,7 +47,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIdit™</title>
+    <title>AIdit</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -121,10 +125,10 @@
               <a href="./index.php">Inicio</a>
             </li>
             <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
-              <a href="./menu.php">Menú</a>
+              <a href="../auditado/buzoncitas.php">Buzón de Citas</a>
             </li>
             <li class="text-text-primary md:mr-8 font-semibold hover:text-primary">
-              <a href="./status.php">Status Auditorias</a>
+              <a href="../auditado/status.php">Status Auditorias</a>
             </li>
             <li class="text-gray-500 md:mr-8 hover:text-secundary">
               <button
@@ -145,86 +149,18 @@
             <h2 class="text-primary pt-6 font-bold text-2xl">Informe de Observaciones</h2>
         </div>
         <div class="ml-4 md:ml-8 flex flex-row gap-2">
-                <p class="text-primary  font-semibold text-lg items-center">Folio de Auditoria</p>
+                <p class="text-primary  font-semibold text-lg items-center">Folio de Informe</p>
                 <p class="bg-primary text-white text-lg  px-4 rounded-lg">
-                    <?php echo $auditoria['folio']; ?>
+                    <?php echo $informe['folio_informe']; ?>
                 </p>
         </div>
 
-        <form class="flex flex-col md:flex-row w-full justify-center gap-8" 
+        <section class="flex flex-col md:flex-row w-full justify-center gap-8" 
             action="<?php
             echo 'php/generar-informe.php?folio='.$auditoria['folio'];
-            ?>" 
-            method="POST" 
-            enctype="multipart/form-data"
+            ?>" method="POST" enctype="multipart/form-data"
         >
-            <div class="flex flex-col md:w-2/5 lg:w-1/3 md:justify-center">
-                <div class="flex flex-col mb-4 bg-white px-6 pt-5 pb-8 rounded-lg">
-                    <label for="archivo" class=" text-primary font-semibold text-lg">Selecciona un archivo:</label>
-                    <input type="file" id="archivo" name="archivo" required>
-                </div>
-                <div class="bg-white mb-4 rounded-lg px-6 pt-5 pb-8 flex gap-4 flex-col">
-                    <h3 class="text-center text-primary font-semibold text-lg">Irregularidades Detectadas</h3>
-                    <div class="flex flex-col">
-                        <label for="irregularidades" class="font-medium text-primary text-sm">Descripción de las irregularidades detectadas</label>
-                        <textarea id="texto" class="h-10 p-2  bg-gray-100 rounded-md resize-none" name="irregularidades" placeholder="Escribe aquí tu texto..." oninput="verificarContenido()"></textarea>
-                    </div>
-                </div>
-                <div id="cita" class="hidden flex flex-col bg-white w-full px-7 pt-3 pb-5 rounded-lg pb-8">
-                        <h3 class="text-center text-lg font-bold">
-                            Generar Cita
-                        </h3>
-                        <div class="flex flex-col md:flex-row gap-2 mb-2">
-                          <div class="flex-1 md:w-1/2">
-                                <label for="titulo" class="font-medium text-gray-900 text-sm truncate">Fecha de Cita</label>
-                                <input
-                                    type="date"
-                                    name="fecha-cita"
-                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
-                                    placeholder="Título"
-                                    required=""
-                                />
-                          </div>  
-                          <div class="flex-1 md:w-1/2">
-                                <label for="hora-cita" class="font-medium text-gray-900 text-sm truncate">Hora de Cita</label>
-                                <input
-                                    type="time"
-                                    name="hora-cita"
-                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
-                                    placeholder=""
-                                    required=""
-                                />
-                            </div>
-                        </div>
-                        <div class="flex flex-col md:flex-row gap-2 mb-2">
-                            <div class="flex-1 md:w-1/3">
-                                <label for="folio" class="font-medium text-gray-900 text-sm truncate">Lugar de Cita</label>
-                                <input
-                                    type="text"
-                                    name="lugar-cita"
-                                    class="bg-[#D9D9D9] sm:text-sm rounded-lg block w-full p-2.5 font-semibold"
-                                    
-                                    required=""
-                                />
-                            </div>
-                            
-                        </div>
-                        
-                        
-                        
-                    </div>
-                    <script>
-                      function verificarContenido() {
-                          var textarea = document.getElementById('texto');
-                          if (textarea.value.trim() !== "") {
-                              document.getElementById('cita').classList.remove('hidden');
-                          } else {
-                              document.getElementById('cita').classList.add('hidden');
-                          }
-                      }
-                    </script>
-                <button class="self-center rounded-lg py-2 text-white font-semibold px-5 bg-primary">Actualizar</button>
-            </div>
+            
             <div class="flex flex-col md:w-2/5 lg:w-1/3 ">
                 <div class ="flex flex-col border-2 bg-primary rounded-xl pt-4 pb-6 px-8">
                     <h2 class="text-center text-white  text-lg py-1 font-bold">
@@ -232,18 +168,13 @@
                     </h2>
                 
                     <div class="flex flex-row gap-2 mb-2 w-full">
-                        <div class=" w-3/4">
+                        <div class=" w-full">
                             <p class="font-bold text-white mb-2 text-sm">Título</p>
                             <div class="rounded-lg bg-white pl-4 py-2  text-sm font-semibold mb-2">
                             <?php echo $auditoria['titulo'] ?>
                             </div>
                         </div>
-                        <div class=" w-1/4">
-                            <p class="font-bold text-white mb-2 truncate text-sm">Año Fiscal</p>
-                            <div class="rounded-lg bg-white px-4 py-2 text-sm font-semibold truncate">
-                            <?php echo $auditoria['ano_fiscal'] ?>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="flex flex-row gap-2 mb-2 w-full">
                         <div class=" w-2/4">
@@ -253,28 +184,18 @@
                             </div>
                         </div>
                         <div class=" w-2/4">
-                            <p class="font-bold text-white mb-2 truncate text-sm">Fecha de Emisión</p>
+                            <p class="font-bold text-white mb-2 truncate text-sm">Año Fiscal</p>
                             <div class="rounded-lg bg-white px-4 py-2 text-sm font-semibold truncate">
-                            <?php 
-                            $timestamp = strtotime($auditoria['fecha_elaboracion']);
-                            echo date('d/m/Y', $timestamp);
-                            ?>
+                            <?php echo $auditoria['ano_fiscal'] ?>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="flex flex-row gap-2 mb-2 w-full">
-                        <div class=" w-2/4">
+                        <div class=" w-full">
                             <p class="font-bold text-white mb-2 text-sm">RFC Auditado</p>
                             <div class="rounded-lg bg-white pl-4 py-2  text-sm font-semibold mb-2">
                             <?php echo $auditoria['rfc_auditado'] ?>
-                            </div>
-                        </div>
-                        <div class=" w-2/4">
-                            <p class="font-bold text-white mb-2 truncate text-sm">Estado</p>
-                            <div class="rounded-lg bg-white px-4 py-2 text-sm font-semibold truncate">
-                            <?php 
-                            echo ucfirst($auditoria['estado']);
-                            ?>
                             </div>
                         </div>
                     </div>
@@ -311,7 +232,26 @@
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="flex flex-col md:w-2/5 lg:w-1/3 md:justify-center">
+                <div class="flex flex-col mb-4 bg-white px-6 pt-5 pb-8 rounded-lg">
+                    
+                    <a href="./php/download.php?id=<?php echo $informe['folio_informe']; ?>" class="self-center rounded-lg py-2 text-white font-semibold px-5 bg-primary">
+                        <img src="../assets/img/pdf.svg" alt="">    
+                        Descargar Archivo
+                    </a>
+                </div>
+                <div class="bg-white mb-4 rounded-lg px-6 pt-5 pb-8 flex gap-4 flex-col">
+                    <h3 class="text-center text-primary font-semibold text-lg">Irregularidades Detectadas</h3>
+                    <div class="flex flex-col">
+                        <label for="irregularidades" class="font-medium text-primary text-sm">Descripción de las irregularidades detectadas</label>
+                        <div class="h-32 p-2  bg-gray-100 rounded-md resize-none"  >
+                          <?php echo $informe['irregularidades']; ?>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+    </section>
       </div>
     </main>
     <!-- footer -->
@@ -341,7 +281,7 @@
         </div>
 
         <p class="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          © 2024 <a href="#" class="hover:underline">TuPlomeroMx™</a>. Todos los derechos reservados.
+          © 2024 <a href="#" class="hover:underline">AIdit™</a>. Todos los derechos reservados.
         </p>
       </div>
     </footer>

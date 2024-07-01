@@ -47,7 +47,7 @@
       };
     </script>
   </head>
-  <body class="bg-gray-100">
+  <body class="bg-primary">
   <nav class="shadow bg-gray-100">
       <div
         class="relative flex flex-col px-4 py-4 md:mx-auto md:flex-row md:items-center"
@@ -87,14 +87,14 @@
           <ul
             class="flex flex-col items-center space-y-2 md:ml-auto md:flex-row md:space-y-0"
           >
-            <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
+          <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
               <a href="./index.php">Inicio</a>
             </li>
             <li class="text-gray-500 md:mr-8 font-semibold hover:text-primary">
-              <a href="./menu.php">Menú</a>
+              <a href="../auditado/buzoncitas.php">Buzón de Citas</a>
             </li>
             <li class="text-text-primary md:mr-8 font-semibold hover:text-primary">
-              <a href="./status.php">Status Auditorias</a>
+              <a href="../auditado/status.php">Status Auditorias</a>
             </li>
             <li class="text-gray-500 md:mr-8 hover:text-secundary">
               <button
@@ -109,7 +109,7 @@
       </div>
     </nav>
     <main class="min-h-screen-minus-68 w-full flex flex-col">
-      <h2 class="text-primary text-center py-7 text-2xl font-bold">
+      <h2 class="text-primary text-white text-center py-7 text-2xl font-bold">
                 Citas programadas
       </h2>    
       <div class="flex flex-col">
@@ -126,10 +126,10 @@
             $result = mysqli_query($conexion, $query);
             
             if(mysqli_num_rows($result) == 0){
-              echo '<h2 class="text-primary text-center py-7 text-2xl font-bold">No hay citas</h2>';
+              echo '<h2 class="text-white text-center py-7 text-2xl font-bold">No hay citas</h2>';
             }else{
               echo '
-                <thead class="bg-primary text-white">
+                <thead class="bg-#012A45 text-white">
                   <tr>
                     <th class="py-2 border-r rounded-tl-lg">Folio informe</th>
                     <th class="py-2 border-r ">Fecha</th>
