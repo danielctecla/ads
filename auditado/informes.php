@@ -17,7 +17,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tuPlomeroMx</title>
+    <title>AIdit™</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -110,7 +110,7 @@
     </nav>
     <main class="min-h-screen-minus-68 w-full flex flex-col">
       <h2 class="text-primary text-center py-7 text-2xl font-bold">
-                Status de Auditorías
+                Status de Informes
       </h2>    
       <div class="flex flex-col">
           
@@ -126,7 +126,7 @@
                 FROM informes WHERE folio_auditoria IN(
                     SELECT folio 
                     FROM auditoria 
-                    WHERE rfc_auditor = '".$_SESSION['rfc']."'
+                    WHERE rfc_auditado = '".$_SESSION['rfc']."'
                 )";
 
             $result = mysqli_query($conexion, $query);
@@ -140,7 +140,7 @@
                     <th class="py-2 border-r rounded-tl-lg">Folio informe</th>
                     <th class="py-2 border-r hidden md:table-cell">Titulo</th>
                     <th class="py-2 border-r hidden md:table-cell">Fecha</th>
-                    <th class="py-2 border-r ">Auditado</th>
+                    <th class="py-2 border-r ">RFC Auditor</th>
                     <th class="py-2 border-r ">Folio Auditoria</th>
                     <th class="py-2 border-r rounded-tr-lg">Acciones</th> <!-- Añadido border-r para consistencia -->
                   </tr>
@@ -157,11 +157,11 @@
                         <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio_informe'].'</td>
                         <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$second_row['titulo'].'</td>
                         <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$second_row['fecha_elaboracion'].'</td>
-                        <td class="py-2 px-1 border-r text-center font-semibold">'.$second_row['rfc_auditado'].'</td>
+                        <td class="py-2 px-1 border-r text-center font-semibold">'.$second_row['rfc_auditor'].'</td>
                         
                         <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio_auditoria'].'</td>
                         <td class="py-2 flex justify-center">
-                            <a href="./ver-informe.php?folio-informe='.$row['folio_informe'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Ver informe</a>
+                            <a href="./ver-informe-auditado.php?folio-informe='.$row['folio_informe'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Ver informe</a>
                         </td>
                     </tr>
                 ';
@@ -196,7 +196,7 @@
         <div class="lg:flex lg:items-end lg:justify-between">
           <div>
             <div class="flex justify-center text-teal-600 lg:justify-start">
-              <img src="../assets/img/footer-logo.svg" alt="Logo de tuPlomeroMx" class="h-8" />
+              <img src="../assets/img/footer-logo.svg" alt="Logo de AIdit™" class="h-8" />
             </div>
             <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
               Soluciones eficientes y confiables para todas tus necesidades de plomería.
@@ -217,7 +217,7 @@
         </div>
 
         <p class="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          © 2024 <a href="#" class="hover:underline">TuPlomeroMx™</a>. Todos los derechos reservados.
+          © 2024 <a href="#" class="hover:underline">AIdit™™</a>. Todos los derechos reservados.
         </p>
       </div>
     </footer>

@@ -169,11 +169,11 @@
             <h2 class="max-md:px-6 text-2xl font-bold mb-2">Actividades</h2>
             <div class="bg-white border-2 px-8 py-10 flex flex-col md:rounded-lg">
               <div class ="flex flex-row justify-center gap-3 mb-2">
-                <a href="" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center justify-center rounded-lg text-white items-center font-semibold">Status de auditoria</a> 
+                <a href="./status.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center justify-center rounded-lg text-white items-center font-semibold">Status de auditoria</a> 
                 <a href="./buzoncitas.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center rounded-lg text-white justify-center items-center font-semibold">Ver Citas</a>
               </div>
               <div class ="flex flex-row justify-center gap-3">
-                <a href="./ver-informe-auditado.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Ver informes</a> 
+                <a href="./informes.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 px-4 text-center rounded-lg text-white items-center justify-center font-semibold">Ver informes</a> 
               </div>
             </div>
           </div>

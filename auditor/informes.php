@@ -17,7 +17,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tuPlomeroMx</title>
+    <title>AIdit™</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -196,7 +196,7 @@
         <div class="lg:flex lg:items-end lg:justify-between">
           <div>
             <div class="flex justify-center text-teal-600 lg:justify-start">
-              <img src="../assets/img/footer-logo.svg" alt="Logo de tuPlomeroMx" class="h-8" />
+              <img src="../assets/img/footer-logo.svg" alt="Logo de AIdit™" class="h-8" />
             </div>
             <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
               Soluciones eficientes y confiables para todas tus necesidades de plomería.
@@ -217,7 +217,7 @@
         </div>
 
         <p class="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          © 2024 <a href="#" class="hover:underline">TuPlomeroMx™</a>. Todos los derechos reservados.
+          © 2024 <a href="#" class="hover:underline">AIdit™™</a>. Todos los derechos reservados.
         </p>
       </div>
     </footer>

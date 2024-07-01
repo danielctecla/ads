@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>tuPlomeroMx</title>
+    <title>AIdit™</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -169,7 +169,7 @@
             <h2 class="max-md:px-6 text-2xl font-bold mb-2">Actividades</h2>
             <div class="bg-white border-2 px-8 py-10 flex flex-col md:rounded-lg">
               <div class ="flex flex-row justify-center gap-3 mb-2">
-                <a href="" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center justify-center rounded-lg text-white items-center font-semibold">Status de auditoria</a> 
+                <a href="./status.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center justify-center rounded-lg text-white items-center font-semibold">Status de auditoria</a> 
                 <a href="./ver-citas.php" class="w-2/4 h-14 flex bg-[#13212A] py-3 text-center rounded-lg text-white justify-center items-center font-semibold">Ver Citas</a>
               </div>
               <div class ="flex flex-row justify-center gap-3">
@@ -207,7 +207,7 @@
         </div>
 
         <p class="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          © 2024 <a href="#" class="hover:underline">TuPlomeroMx™</a>. Todos los derechos reservados.
+          © 2024 <a href="#" class="hover:underline">AIdit™</a>. Todos los derechos reservados.
         </p>
       </div>
     </footer>

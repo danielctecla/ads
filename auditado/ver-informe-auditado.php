@@ -47,7 +47,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tuPlomeroMx</title>
+    <title>AIdit</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style type="text/tailwindcss">
       @layer utilities {
@@ -128,7 +128,7 @@
               <a href="./menu.php">Menú</a>
             </li>
             <li class="text-text-primary md:mr-8 font-semibold hover:text-primary">
-              <a href="">Status Auditorias</a>
+              <a href="">Status Informes</a>
             </li>
             <li class="text-gray-500 md:mr-8 hover:text-secundary">
               <button
@@ -281,7 +281,7 @@
         </div>
 
         <p class="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          © 2024 <a href="#" class="hover:underline">TuPlomeroMx™</a>. Todos los derechos reservados.
+          © 2024 <a href="#" class="hover:underline">AIdit™</a>. Todos los derechos reservados.
         </p>
       </div>
     </footer>

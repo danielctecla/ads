@@ -94,7 +94,7 @@
               <a href="./menu.php">Menú</a>
             </li>
             <li class="text-text-primary md:mr-8 font-semibold hover:text-primary">
-              <a href="">Status Auditorias</a>
+              <a href="./status.php">Status Auditorias</a>
             </li>
             <li class="text-gray-500 md:mr-8 hover:text-secundary">
               <button
@@ -122,7 +122,7 @@
             
             include './php/conexion_bd.php';
 
-            $query = "SELECT * FROM auditoria WHERE rfc_auditor = '".$_SESSION['rfc']."'";
+            $query = "SELECT * FROM auditoria WHERE rfc_auditado = '".$_SESSION['rfc']."'";
             $result = mysqli_query($conexion, $query);
             if(mysqli_num_rows($result) == 0){
               echo '<h2 class="text-primary text-center py-7 text-2xl font-bold">No hay auditorías registradas</h2>';
@@ -135,30 +135,23 @@
                     <th class="py-2 border-r hidden md:table-cell">Auditor</th>
                     <th class="py-2 border-r ">Auditado</th>
                     <th class="py-2 border-r ">Estado</th>
-                    <th class="py-2 border-r rounded-tr-lg">Acciones</th> <!-- Añadido border-r para consistencia -->
+                    <th class="py-2 border-r rounded-tr-lg">Acciones</th>
                   </tr>
                 </thead>
                 ';
               echo '<tbody>';
               while($row = mysqli_fetch_array($result)){
-                if($row['estado'] == 'pendiente' || $row['estado'] == 'revisada'){
                 echo '
                   <tr class="bg-white">
                     <td class="py-2 px-1 border-r text-center font-semibold">'.$row['folio'].'</td>
                     <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['fecha_elaboracion'].'</td>
                     <td class="py-2 px-1 border-r text-center font-semibold hidden md:table-cell">'.$row['rfc_auditor'].'</td>
                     <td class="py-2 px-1 border-r text-center font-semibold ">'.$row['rfc_auditado'].'</td>
-                    
-                ';
-                  echo '
                     <td class="py-2 px-1 border-r text-center font-semibold ">'.ucfirst($row['estado']).'</td>
                     <td class="py-2 flex justify-center">
-                      <a href="./generar_informe.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Generar Informe</a>
+                      <a href="./ver-informe-auditado.php?folio='.$row['folio'].'" class="text-white bg-primary rounded-xl px-2 py-1 ">Ver informe</a>
                     </td>
-                  ';
-
-                echo '</tr>';
-                }
+                  </tr>';
               }
               echo '</tbody>';
             }
@@ -172,7 +165,7 @@
         <div class="lg:flex lg:items-end lg:justify-between">
           <div>
             <div class="flex justify-center text-teal-600 lg:justify-start">
-              <img src="../assets/img/footer-logo.svg" alt="Logo de tuPlomeroMx" class="h-8" />
+              <img src="../assets/img/footer-logo.svg" alt="Logo de tAIdit" class="h-8" />
             </div>
             <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
               Soluciones eficientes y confiables para todas tus necesidades de plomería.
